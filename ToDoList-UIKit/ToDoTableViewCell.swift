@@ -12,7 +12,6 @@ class ToDoTableViewCell: UITableViewCell {
     /// 체크박스 버튼
     let checkboxButton: UIButton = {
         var config = UIButton.Configuration.plain()
-        config.image = UIImage(systemName: "square")
         
         let button = UIButton()
         button.configuration = config
@@ -23,6 +22,7 @@ class ToDoTableViewCell: UITableViewCell {
                 button.configuration?.image = UIImage(systemName: "square")
             }
         }, for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
     }()
@@ -31,19 +31,28 @@ class ToDoTableViewCell: UITableViewCell {
     let toDoTitle: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 17)
+        label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()
     
+    var todo: UserDefaults? {
+        didSet {
+            if todo?.completed == true {
+                checkboxButton.configuration?.image = UIImage(systemName: "checkmark.square")
+            } else {
+                checkboxButton.configuration?.image = UIImage(systemName: "square")
+            }
+            toDoTitle.text = todo?.title
+        }
+    }
+    
     /// 셀에 뷰 추가 및 제약조건 설정 초기화
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        addSubview(checkboxButton)
-        addSubview(toDoTitle)
-        
-        checkboxButton.translatesAutoresizingMaskIntoConstraints = false
-        toDoTitle.translatesAutoresizingMaskIntoConstraints = false
+     
+        contentView.addSubview(checkboxButton)
+        contentView.addSubview(toDoTitle)
         
         NSLayoutConstraint.activate([
             checkboxButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
@@ -51,7 +60,7 @@ class ToDoTableViewCell: UITableViewCell {
             checkboxButton.widthAnchor.constraint(equalToConstant: 30),
             checkboxButton.heightAnchor.constraint(equalToConstant: 30),
             
-            toDoTitle.leadingAnchor.constraint(equalTo: checkboxButton.trailingAnchor, constant: 10),
+            toDoTitle.leadingAnchor.constraint(equalTo: checkboxButton.trailingAnchor, constant: 20),
             toDoTitle.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             toDoTitle.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])

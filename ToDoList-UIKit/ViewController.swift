@@ -9,7 +9,7 @@ import UIKit
 
 class ViewController: UIViewController, UITableViewDataSource {
     
-    let tasks = UserDefaults.tasks
+    let todos = UserDefaults.todos
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,15 +34,14 @@ class ViewController: UIViewController, UITableViewDataSource {
     
     // MARK: - UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tasks.count
+        return todos.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "todo", for: indexPath)
-        
-        var config = cell.defaultContentConfiguration()
-        config.text = tasks[indexPath.row]
-        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "todo", for: indexPath) as? ToDoTableViewCell else {
+            fatalError("The dequeued cell is not an instance of ToDoTableViewCell.")
+        }
+        cell.todo = todos[indexPath.row]
         return cell
     }
     
