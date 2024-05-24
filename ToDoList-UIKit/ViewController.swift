@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource, AddToDoDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AddToDoDelegate {
 
     /// User data - 최신화 유지
     var todos: [UserDefaults] {
@@ -32,6 +32,7 @@ class ViewController: UIViewController, UITableViewDataSource, AddToDoDelegate {
         /// 할 일 목록
         tableView = .init(frame: self.view.frame)
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.register(ToDoTableViewCell.self, forCellReuseIdentifier: "todo")
         tableView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(tableView)
@@ -58,6 +59,13 @@ class ViewController: UIViewController, UITableViewDataSource, AddToDoDelegate {
         return cell
     }
     
+    // MARK: - UITableViewDelegate
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            deleteToDo(indexPath: indexPath)
+        }
+    }
+    
     // MARK: - AddToDoDelegate
     func addToDo() {
         tableView.reloadData()
@@ -69,6 +77,11 @@ class ViewController: UIViewController, UITableViewDataSource, AddToDoDelegate {
         addToDoController.delegate = self
         /// 다음 화면 이동
         self.show(addToDoController, sender: nil)
+    }
+    
+    func deleteToDo(indexPath: IndexPath) {
+        UserDefaults.todos.remove(at: indexPath.row)
+        tableView.reloadData()
     }
 
 
