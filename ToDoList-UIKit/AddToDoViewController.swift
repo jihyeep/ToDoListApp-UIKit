@@ -9,7 +9,7 @@ import UIKit
 
 /// 추가하는 데이터를 부모 뷰에 넘겨주기 위한 delegate
 protocol AddToDoDelegate {
-    func addToDo()
+    func addToDo(toDoItem: UserDefaults)
 }
 
 class AddToDoViewController: UIViewController {
@@ -72,10 +72,10 @@ class AddToDoViewController: UIViewController {
     
     @objc func doneButtonTapped() {
         guard let newToDo = textField.text, !newToDo.isEmpty else { return }
-        /// 사용자 데이터에 할 일 추가(직접 접근해서 수정해야 데이터에 반영됨)
-        ToDoStore.shared.addToDo(newToDo: UserDefaults(title: newToDo, completed: false))
+        (직접 접근해서 수정해야 데이터에 반영됨)
+
         /// 부모 뷰에 전달
-        delegate?.addToDo()
+        delegate?.addToDo(toDoItem: UserDefaults(title: newToDo, completed: false))
         self.navigationController?.popViewController(animated: true)
     }
     

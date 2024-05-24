@@ -8,11 +8,6 @@
 import UIKit
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AddToDoDelegate {
-
-    /// User data - 최신화 유지
-//    var todos: [UserDefaults] {
-//        return UserDefaults.todos
-//    }
     
     lazy var tableView = UITableView()
     
@@ -72,7 +67,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     // MARK: - AddToDoDelegate
-    func addToDo() {
+    func addToDo(toDoItem: UserDefaults) {
+        /// 사용자 데이터에 할 일 추가
+        ToDoStore.shared.addToDo(newToDo: toDoItem)
         ToDoStore.shared.saveToDoData()
         tableView.reloadData()
     }
@@ -86,6 +83,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func deleteToDo(indexPath: IndexPath) {
+        /// 사용자 데이터에서 할 일 삭제
         ToDoStore.shared.deleteToDo(index: indexPath.row)
         ToDoStore.shared.saveToDoData()
         tableView.reloadData()
