@@ -21,8 +21,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // MARK: - 초기 뷰컨트롤러 셋팅
         let toDoListViewController = ViewController()
+        let navigationController = UINavigationController(rootViewController: toDoListViewController)
         
-        self.window?.rootViewController = toDoListViewController
+        self.window?.rootViewController = navigationController
         self.window?.makeKeyAndVisible()
     }
 
