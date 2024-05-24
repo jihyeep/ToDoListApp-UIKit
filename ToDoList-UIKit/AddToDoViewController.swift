@@ -13,7 +13,20 @@ class AddToDoViewController: UIViewController {
         super.viewDidLoad()
 
         self.view.backgroundColor = .white
+        self.navigationItem.title = "Add ToDo"
+        
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonTapped))
+        self.navigationItem.leftBarButtonItem = cancelButton
+        
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonTapped))
+        self.navigationItem.rightBarButtonItem = doneButton
     }
     
-
+    @objc func cancelButtonTapped() {
+        
+    }
+    
+    @objc func doneButtonTapped() {
+        
+    }
 }

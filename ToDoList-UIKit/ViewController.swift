@@ -25,7 +25,7 @@ class ViewController: UIViewController {
     
     @objc func addButtonTapped() {
         let addToDoController = AddToDoViewController()
-        self.present(addToDoController, animated: true)
+        self.show(addToDoController, sender: nil)
     }
 
 
