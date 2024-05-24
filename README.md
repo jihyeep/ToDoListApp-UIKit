@@ -40,6 +40,13 @@ UIKit으로 ToDo List 만들기
     - 스와이프하여 삭제 가능
 
 
+## 화면
+
+|메인 화면|할 일 추가 화면|
+|:---:|:---:|
+|<img src="https://github.com/jihyeep/ToDoList-UIKit/assets/122449708/d396d8cc-abaf-477d-9147-762f62e8c1c4" width="200" height="400"/>|<img src="https://github.com/jihyeep/ToDoList-UIKit/assets/122449708/d306c354-04ba-4221-8f86-b13b4928a904" width="200" height="400"/>|
+
+
 ## Update
 
 - 개발 예정
