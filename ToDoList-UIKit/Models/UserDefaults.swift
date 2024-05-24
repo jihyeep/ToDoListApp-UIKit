@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UserDefaults: Identifiable{
+struct UserDefaults: Identifiable, Codable{
     var id = UUID()
     var title: String
     var completed: Bool
