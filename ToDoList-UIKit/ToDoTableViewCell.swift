@@ -28,7 +28,12 @@ class ToDoTableViewCell: UITableViewCell {
     }()
     
     /// 할 일 제목
-    let toDoText = UILabel()
+    let toDoTitle: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 17)
+        
+        return label
+    }()
     
     override func awakeFromNib() {
         super.awakeFromNib()
