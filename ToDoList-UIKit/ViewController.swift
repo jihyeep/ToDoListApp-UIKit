@@ -12,7 +12,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        self.view.backgroundColor = .white
         self.title = "ToDo List"
         /// Navigation 타이틑 크게 설정
         self.navigationController?.navigationBar.prefersLargeTitles = true
@@ -24,7 +24,8 @@ class ViewController: UIViewController {
     }
     
     @objc func addButtonTapped() {
-        
+        let addToDoController = AddToDoViewController()
+        self.present(addToDoController, animated: true)
     }
 
 
