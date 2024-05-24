@@ -10,11 +10,16 @@ import UIKit
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AddToDoDelegate {
 
     /// User data - 최신화 유지
-    var todos: [UserDefaults] {
-        return UserDefaults.todos
-    }
+//    var todos: [UserDefaults] {
+//        return UserDefaults.todos
+//    }
     
-    var tableView = UITableView()
+    lazy var tableView = UITableView()
+    
+    override func viewIsAppearing(_ animated: Bool) {
+        super.viewIsAppearing(animated)
+        ToDoStore.shared.loadToDoData()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,7 +52,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     // MARK: - UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return todos.count
+        return ToDoStore.shared.numberOfToDos()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -55,7 +60,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             fatalError("The dequeued cell is not an instance of ToDoTableViewCell.")
         }
         /// 사용자 데이터 셀에 넣기
-        cell.todo = todos[indexPath.row]
+        cell.todo = ToDoStore.shared.getToDo(index: indexPath.row)
         return cell
     }
     
@@ -68,6 +73,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     // MARK: - AddToDoDelegate
     func addToDo() {
+        ToDoStore.shared.saveToDoData()
         tableView.reloadData()
     }
     
@@ -80,7 +86,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func deleteToDo(indexPath: IndexPath) {
-        UserDefaults.todos.remove(at: indexPath.row)
+        ToDoStore.shared.deleteToDo(index: indexPath.row)
+        ToDoStore.shared.saveToDoData()
         tableView.reloadData()
     }
 

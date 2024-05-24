@@ -73,7 +73,7 @@ class AddToDoViewController: UIViewController {
     @objc func doneButtonTapped() {
         guard let newToDo = textField.text, !newToDo.isEmpty else { return }
         /// 사용자 데이터에 할 일 추가(직접 접근해서 수정해야 데이터에 반영됨)
-        UserDefaults.todos.append(UserDefaults(title: newToDo, completed: false))
+        ToDoStore.shared.addToDo(newToDo: UserDefaults(title: newToDo, completed: false))
         /// 부모 뷰에 전달
         delegate?.addToDo()
         self.navigationController?.popViewController(animated: true)
