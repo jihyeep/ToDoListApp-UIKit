@@ -10,7 +10,7 @@ import UIKit
 class ToDoTableViewCell: UITableViewCell {
     
     /// 체크박스 버튼
-    let checkboxButton: UIButton = {
+    lazy var checkboxButton: UIButton = {
         var config = UIButton.Configuration.plain()
         
         let button = UIButton()
@@ -28,7 +28,7 @@ class ToDoTableViewCell: UITableViewCell {
     }()
     
     /// 할 일 제목
-    let toDoTitle: UILabel = {
+    lazy var toDoTitle: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false

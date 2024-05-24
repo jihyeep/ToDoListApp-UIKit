@@ -8,7 +8,7 @@
 import UIKit
 
 class ViewController: UIViewController, UITableViewDataSource {
-    
+    /// User data
     let todos = UserDefaults.todos
 
     override func viewDidLoad() {
@@ -41,6 +41,7 @@ class ViewController: UIViewController, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "todo", for: indexPath) as? ToDoTableViewCell else {
             fatalError("The dequeued cell is not an instance of ToDoTableViewCell.")
         }
+        /// 사용자 데이터 셀에 넣기
         cell.todo = todos[indexPath.row]
         return cell
     }
