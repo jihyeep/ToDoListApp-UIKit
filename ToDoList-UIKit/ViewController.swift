@@ -8,7 +8,8 @@
 import UIKit
 
 class ViewController: UIViewController, UITableViewDataSource {
-    let tasks = ["일어나기", "앱스쿨 보기", "밥먹기", "공부하기", "자기"]
+    
+    let tasks = UserDefaults.tasks
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +42,6 @@ class ViewController: UIViewController, UITableViewDataSource {
         
         var config = cell.defaultContentConfiguration()
         config.text = tasks[indexPath.row]
-        cell.contentConfiguration = config
         
         return cell
     }
