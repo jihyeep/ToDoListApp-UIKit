@@ -7,7 +7,8 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDataSource {
+    let tasks = ["일어나기", "앱스쿨 보기", "밥먹기", "공부하기", "자기"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,9 +25,28 @@ class ViewController: UIViewController {
         
         /// 할 일 목록
         let tableView = UITableView(frame: self.view.bounds)
+        tableView.dataSource = self
+        tableView.register(ToDoTableViewCell.self, forCellReuseIdentifier: "todo")
+        self.view.addSubview(tableView)
         
     }
     
+    // MARK: - UITableViewDataSource
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tasks.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "todo", for: indexPath)
+        
+        var config = cell.defaultContentConfiguration()
+        config.text = tasks[indexPath.row]
+        cell.contentConfiguration = config
+        
+        return cell
+    }
+    
+    // MARK: - Methods
     @objc func addButtonTapped() {
         let addToDoController = AddToDoViewController()
         /// 다음 화면 이동
