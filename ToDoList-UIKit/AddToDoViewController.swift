@@ -7,7 +7,14 @@
 
 import UIKit
 
+/// 추가하는 데이터를 부모 뷰에 넘겨주기 위한 delegate
+protocol AddToDoDelegate {
+    func addToDo()
+}
+
 class AddToDoViewController: UIViewController {
+
+    var delegate: AddToDoDelegate?
     
     lazy var textLabel: UILabel = {
         let label = UILabel()
@@ -45,6 +52,7 @@ class AddToDoViewController: UIViewController {
         self.view.addSubview(textLabel)
         self.view.addSubview(textField)
         
+        /// 제약조건 설정
         NSLayoutConstraint.activate([
             textLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             textLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
@@ -63,7 +71,12 @@ class AddToDoViewController: UIViewController {
     }
     
     @objc func doneButtonTapped() {
-        
+        guard let newToDo = textField.text, !newToDo.isEmpty else { return }
+        /// 사용자 데이터에 할 일 추가(직접 접근해서 수정해야 데이터에 반영됨)
+        UserDefaults.todos.append(UserDefaults(title: newToDo, completed: false))
+        /// 부모 뷰에 전달
+        delegate?.addToDo()
+        self.navigationController?.popViewController(animated: true)
     }
     
 }

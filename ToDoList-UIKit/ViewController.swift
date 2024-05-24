@@ -7,9 +7,14 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource {
-    /// User data
-    let todos = UserDefaults.todos
+class ViewController: UIViewController, UITableViewDataSource, AddToDoDelegate {
+
+    /// User data - 최신화 유지
+    var todos: [UserDefaults] {
+        return UserDefaults.todos
+    }
+    
+    var tableView = UITableView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,11 +30,18 @@ class ViewController: UIViewController, UITableViewDataSource {
         self.navigationItem.rightBarButtonItem = addButton
         
         /// 할 일 목록
-        let tableView = UITableView(frame: self.view.bounds)
+        tableView = .init(frame: self.view.frame)
         tableView.dataSource = self
         tableView.register(ToDoTableViewCell.self, forCellReuseIdentifier: "todo")
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(tableView)
         
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
     }
     
     // MARK: - UITableViewDataSource
@@ -46,9 +58,15 @@ class ViewController: UIViewController, UITableViewDataSource {
         return cell
     }
     
+    // MARK: - AddToDoDelegate
+    func addToDo() {
+        tableView.reloadData()
+    }
+    
     // MARK: - Methods
     @objc func addButtonTapped() {
         let addToDoController = AddToDoViewController()
+        addToDoController.delegate = self
         /// 다음 화면 이동
         self.show(addToDoController, sender: nil)
     }

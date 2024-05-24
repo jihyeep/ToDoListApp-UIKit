@@ -14,7 +14,7 @@ struct UserDefaults: Identifiable{
 }
 
 extension UserDefaults {
-    static let todos = [
+    static var todos = [
         UserDefaults(title: "일어나기", completed: true),
         UserDefaults(title: "앱스쿨 보기", completed: false),
         UserDefaults(title: "밥먹기", completed: false),
